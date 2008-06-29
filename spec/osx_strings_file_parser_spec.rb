@@ -1,5 +1,5 @@
 require 'spec'
-require File.dirname(__FILE__) + '/../osx_strings_file_parser'
+require File.dirname(__FILE__) + '/../lib/osx_strings_file_parser'
 
 describe OsxStringsFileParser do
   describe "given PropertyName.strings" do
