@@ -3,7 +3,11 @@ require 'iconv'
 
 class OsxStringsFileParser
   def initialize( data )
-    @data = get_utf8_from( data )
+    if data.index('=') and data.index(';') # it appears to be in correct encoding
+      @data = data
+    else
+      @data = get_utf8_from( data )
+    end
   end
 
   def self.parse( data )
@@ -13,7 +17,7 @@ class OsxStringsFileParser
   def to_hash
     hash = {}
     @data.chars.split(';').each do |line|
-      next if line.blank?
+      next if line.strip.blank?
       
       key, value = line.chars.split('=')
       key = remove_quotes_from(key)
@@ -23,7 +27,23 @@ class OsxStringsFileParser
     end
     return hash
   end
+  
+  def to_tuples
+    tuples = []
+    
+    @data.chars.split(';').each do |line|
+      next if line.strip.blank?
+      
+      key, value = line.chars.split('=')
+      key = remove_quotes_from(key)
+      value = remove_quotes_from(value)
 
+      tuples << [ key.to_s, value.to_s ]
+    end
+    
+    return tuples
+  end
+  
   protected
     def remove_quotes_from( string )
       string.chars.strip.chomp('"').reverse.chomp('"').reverse                 
