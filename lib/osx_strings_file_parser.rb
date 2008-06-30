@@ -6,6 +6,10 @@ class OsxStringsFileParser
     @data = get_utf8_from( data )
   end
 
+  def self.parse( data )
+    new( data ).to_hash
+  end
+
   def to_hash
     hash = {}
     @data.chars.split(';').each do |line|

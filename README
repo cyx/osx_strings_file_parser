@@ -1,0 +1,16 @@
+What's this?
+============
+
+This is a Ruby library to help you parse Mac OS X .strings files used for 
+their localizations
+
+Getting Started
+===============
+
+As it stands, this library is optimized to be a Rails Plugin. Simply drop this plugin into your vendor/plugins folder
+
+then in your code:
+
+OsxStringsFileParser.parse( File.read( '/some/strings/file/here.strings ' ))
+
+# => { 'Key1' => 'Value1', 'Key2' => 'Value2' }
